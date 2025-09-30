@@ -1,4 +1,5 @@
-# 🔐 Sicherer Android RAT - Setup-Anleitung v2.0
+# 🔐 AndroidRAT - Setup-Anleitung für Android 15 (Version 2.0)
+**September 2025 - API Level 35 / One UI 7**
 
 ## ⚠️ WICHTIGER RECHTLICHER HINWEIS
 Diese Software ist ausschließlich für:

