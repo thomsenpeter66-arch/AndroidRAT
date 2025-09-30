@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Client</string>
+    <string name="accessibility_service_description">Dieser Service ermöglicht erweiterte Systemüberwachung und Automatisierungsfunktionen. Er ist für die Kernfunktionalität der Anwendung erforderlich.</string>
+</resources>
